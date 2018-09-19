@@ -1,0 +1,17 @@
+.navigation-bar{
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  
+  .navigation-bar > a{
+    display: block;
+    padding-left: 10px;
+    font-size: 0.8em;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .navigation-bar > a:hover{
+    color: gray;
+    text-decoration: underline;
+  }

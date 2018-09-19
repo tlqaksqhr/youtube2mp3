@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  height: 50px;
+  padding: 10px;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-body {
+  height: 30em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
