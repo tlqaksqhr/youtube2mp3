@@ -3,15 +3,16 @@ from django.http import HttpResponse
 
 from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
+from converter import core
 
 @csrf_exempt
 def convert(request):
 
     if request.method == 'POST':
-        return HttpResponse(request.body.decode('utf-8'))
+        result = core.convert_action(request.body.decode('utf-8'))
+        return JsonResponse(result)
     else:
-        return HttpResponse("Convert page...")
+        return HttpResponse("NOT IMPLEMENTED!")
 
 def download(request):
     return HttpResponse("Download page...")
