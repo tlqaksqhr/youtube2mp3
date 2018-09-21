@@ -7,13 +7,14 @@ from converter.coreconfig import CONFIG
 
 from celery import shared_task
 
-# TODO : duplicate file accessing exception 처리 필요;;
+# TODO : nofify that youtube conversion is success or fail to client
 
 @shared_task
 def convert_youtube_video(video_url):
+
 	conv = YoutubeConverter(CONFIG['path'])
 	result = conv.convert_youtube(video_url)
 
-	# add elasticsearch add value routine...
-	download_dto = DownloadAudioInfoDTO()
-	download_dto.insert(result["video_id"],result)
+	if "video_id" in result:
+		download_dto = DownloadAudioInfoDTO()
+		download_dto.insert(result["video_id"],result)
