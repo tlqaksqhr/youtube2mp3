@@ -6,8 +6,7 @@ class Nav extends Component{
     render() {
         return (
             <nav className="navigation-bar">
-                <a href="#text-buttons"> Recommand </a>
-                <a href="#text-buttons"> Home </a>
+                <a href="/"> Home </a>
             </nav>
         );
     }
