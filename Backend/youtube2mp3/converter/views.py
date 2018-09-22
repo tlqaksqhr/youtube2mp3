@@ -21,7 +21,7 @@ def convert(request):
         result = core.convert_action(request.body.decode('utf-8'))
         return JsonResponse(result)
     else:
-        return HttpResponse("NOT-IMPLEMENTED!")
+        return JsonResponse({"status" : "NOT-IMPLEMENTED!"})
 
 
 def download_link(request,video_id):
