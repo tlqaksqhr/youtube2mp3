@@ -8,17 +8,27 @@ from django.http import JsonResponse
 
 from converter import core
 from converter.coreconfig import CONFIG
-from converter.corelib import DownloadAudioInfoDTO
+from converter.corelib import DownloadAudioInfoDTO,Util
 
 import re,os,json
 from urllib.parse import quote
-
 
 
 @csrf_exempt
 def convert(request):
     if request.method == 'POST':
         result = core.convert_action(request.body.decode('utf-8'))
+        return JsonResponse(result)
+    else:
+        return JsonResponse({"status" : "NOT-IMPLEMENTED!"})
+
+
+@csrf_exempt
+def available_link(request):
+
+    if request.method == 'POST':
+        video_url = request.body.decode('utf-8')
+        result = core.available_link_action(video_url)
         return JsonResponse(result)
     else:
         return JsonResponse({"status" : "NOT-IMPLEMENTED!"})

@@ -11,6 +11,27 @@ from elasticsearch import Elasticsearch, NotFoundError
 
 # TODO : additional implementation when exception case (not found youtube video, fail to convert mp4 -> mp3 : duplicate youtube file, race condition...) needed.
 
+class Util():
+
+	@staticmethod
+	def available_link(video_url):
+
+		result = {"status" : "fail"}
+		try:
+			yt = YouTube(video_url)
+			result["status"] = "success"
+		except RegexMatchError:
+			result["status"] = "fail"
+		except VideoUnavailable:
+			result["status"] = "fail"
+		except LiveStreamError:
+			result["status"] = "fail"
+		except PytubeError:
+			result["status"] = "fail"
+		
+		return result
+
+
 class YoutubeConverter():
 
 	def __init__(self,download_path):
