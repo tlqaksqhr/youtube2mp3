@@ -34,6 +34,31 @@
   color: #158cba;
 }
 
+.loading-box {
+  width: 30em;
+  height: 4em;
+  display: flex;
+  background: white;
+  border: solid 1px;
+  border-color: #158cba;
+  border-radius: 1em;
+  color: #158cba;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 11em;
+  padding-top: 1em;
+}
+
+.loading-box > h3 {
+  margin-top: 0.6em;
+  margin-left: 2em;
+}
+
+.download-box{
+  background: white;
+}
+
+
 form > input[type="text"] {
   width: 40em;
   height: 30px;
@@ -48,8 +73,14 @@ form > input[type="text"] {
 .button-box > button{
   margin-top: 20px;
   margin-left: 10px;
-  background-color: #f2f2f2;
-  color: #757575;
+  background-color: #158cba;
+  border-radius: 1em;
+  color: white;
   font-weight: bold;
   font-size: 12px;
+}
+
+.button-box > button:hover{
+  background-color: #178fbc;
+  opacity:0.8;
 }

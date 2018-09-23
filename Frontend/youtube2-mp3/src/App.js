@@ -5,6 +5,7 @@ import Nav from './Nav';
 import Util from './util';
 
 import Button from '@material-ui/core/Button';
+import { SSL_OP_PKCS1_CHECK_2 } from 'constants';
 
 
 const DOWNLOAD_STATE = {
@@ -43,15 +44,15 @@ class App extends Component {
         );
       case DOWNLOAD_STATE.WAIT:
         return (
-          <div>
+          <div className="loading-box">
             <h3>
-              Download Proceed <i className="fa fa-youtube-play fa-1x" />
+              Download Proceed..... <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
             </h3>
           </div>
         );
       case DOWNLOAD_STATE.SUCCESS:
         return (
-          <div>
+          <div className="download-box">
             <div>
               <h3>{this.state.Title}</h3>
             </div>
@@ -68,19 +69,43 @@ class App extends Component {
   }
 
   async convertYoutubeVideo(url){
-    this.setState({
-      DownloadPageState: DOWNLOAD_STATE.WAIT
+
+    let available_url = await fetch(`http://localhost:8000/available_link/`,{
+      method: 'POST',
+      mode: "cors",
+      credentials: "same-origin",
+      body: JSON.stringify({
+        "url" : url
+      }),
     });
 
-    let req_param = {
-      "url" : url
-    };
+    let is_available = await available_url.json();
+    console.log(is_available);
 
+    if(is_available['status'] === "success")
+    {
+      this.setState({
+        DownloadPageState: DOWNLOAD_STATE.WAIT
+      });
+    }
+    else if(is_available['status'] === "fail")
+    {
+      this.setState({
+        DownloadPageState: DOWNLOAD_STATE.INVALID_PAGE
+      });
+      return ;
+    }
+    else{
+      return ;
+    }
+    
     let response = await fetch(`http://localhost:8000/convert/`,{
       method: 'POST',
       mode: "cors",
       credentials: "same-origin",
-      body: JSON.stringify(req_param),
+      body: JSON.stringify({
+        "url" : url
+      }),
     });
 
     console.log(await response.json());
@@ -121,7 +146,6 @@ class App extends Component {
       let p = true;
       do{
         p = await this.getDownloadLink(id);
-        console.log(p);
       }
       while(!p);
     }
